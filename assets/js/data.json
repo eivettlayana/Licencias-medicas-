@@ -1,0 +1,39 @@
+{
+  "funcionarios": [
+    {
+      "rut": "12.345.678-9",
+      "nombre": "Juan Pérez González",
+      "departamento": "Recursos Humanos",
+      "estado": "pendiente",
+      "foto": null
+    },
+    {
+      "rut": "15.678.901-2",
+      "nombre": "María Rodríguez Silva",
+      "departamento": "Finanzas",
+      "estado": "autorizada",
+      "foto": null
+    },
+    {
+      "rut": "18.234.567-3",
+      "nombre": "Carlos Martínez López",
+      "departamento": "IT",
+      "estado": "rechazada",
+      "foto": null
+    },
+    {
+      "rut": "20.123.456-7",
+      "nombre": "Ana Gómez Ramírez",
+      "departamento": "Marketing",
+      "estado": "pendiente",
+      "foto": null
+    },
+    {
+      "rut": "22.987.654-1",
+      "nombre": "Luis Torres Vargas",
+      "departamento": "Ventas",
+      "estado": "autorizada",
+      "foto": null
+    }
+  ]
+}
