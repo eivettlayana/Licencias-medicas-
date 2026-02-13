@@ -4,8 +4,411 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Gestión - Funcionarios</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-crema-base: #F5F0E6;
+            --color-crema-claro: #FFF8F0;
+            --color-crema-medio: #E8DCC8;
+            --color-crema-oscuro: #D4C5A8;
+            --color-azul-oscuro: #2C3E50;
+            --color-verde: #27AE60;
+            --color-rojo: #E74C3C;
+            --color-naranja: #F39C12;
+            --color-gris: #95A5A6;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--color-crema-claro) 0%, var(--color-crema-base) 100%);
+            color: var(--color-azul-oscuro);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(120deg, var(--color-azul-oscuro) 0%, #34495E 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--color-crema-claro);
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(120deg, var(--color-crema-oscuro) 0%, var(--color-crema-medio) 100%);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--color-azul-oscuro);
+        }
+
+        .card-header h2 {
+            color: var(--color-azul-oscuro);
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-azul-oscuro);
+            font-size: 0.95rem;
+        }
+
+        .input-group label i {
+            margin-right: 8px;
+            color: var(--color-crema-oscuro);
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--color-crema-medio);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--color-crema-claro);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--color-azul-oscuro);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+
+        .helper-text {
+            font-size: 0.85rem;
+            color: var(--color-gris);
+            margin-top: 5px;
+            display: block;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(120deg, var(--color-azul-oscuro) 0%, #34495E 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(120deg, #1a252f 0%, #2c3e50 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-success {
+            background: linear-gradient(120deg, var(--color-verde) 0%, #2ecc71 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(120deg, var(--color-gris) 0%, #bdc3c7 100%);
+            color: white;
+            margin-top: 15px;
+        }
+
+        .btn-close {
+            background: transparent;
+            color: var(--color-azul-oscuro);
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            margin-left: 15px;
+        }
+
+        .btn-close:hover {
+            background: rgba(44, 62, 80, 0.1);
+        }
+
+        .info-section {
+            background: var(--color-crema-claro);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--color-azul-oscuro);
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-crema-medio);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item .label {
+            font-weight: 600;
+            color: var(--color-azul-oscuro);
+        }
+
+        .info-item .value {
+            color: var(--color-azul-oscuro);
+            font-weight: 500;
+        }
+
+        .status-section, .upload-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .status-section label, .upload-section label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--color-azul-oscuro);
+            font-size: 0.95rem;
+        }
+
+        .status-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--color-crema-medio);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .status-select:focus {
+            outline: none;
+            border-color: var(--color-azul-oscuro);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+
+        .upload-area {
+            border: 3px dashed var(--color-crema-medio);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--color-crema-claro);
+        }
+
+        .upload-area:hover {
+            border-color: var(--color-azul-oscuro);
+            background: rgba(44, 62, 80, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--color-crema-oscuro);
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            margin: 0.5rem 0;
+            color: var(--color-gris);
+        }
+
+        .upload-hint {
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .preview-container {
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .actions-section {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .status-message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--color-verde);
+            border: 2px solid var(--color-verde);
+            display: block;
+        }
+
+        .status-message.error {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--color-rojo);
+            border: 2px solid var(--color-rojo);
+            display: block;
+        }
+
+        .status-message.pending {
+            background: rgba(243, 156, 18, 0.15);
+            color: var(--color-naranja);
+            border: 2px solid var(--color-naranja);
+            display: block;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: var(--color-gris);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+
+            .card-body {
+                padding: 1.5rem;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .actions-section {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 0.8rem;
+            }
+
+            .logo {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .logo i {
+                font-size: 2rem;
+            }
+
+            .logo h1 {
+                font-size: 1.3rem;
+            }
+
+            .card-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -100,6 +503,265 @@
         </footer>
     </div>
 
-    <script src="assets/js/app.js"></script>
+    <script>
+        // Variables globales
+        let funcionariosData = [];
+        let funcionarioActual = null;
+        let imagenSeleccionada = null;
+
+        // Datos mockeados directamente en el script
+        const datosMockeados = {
+            "funcionarios": [
+                {
+                    "rut": "12.345.678-9",
+                    "nombre": "Juan Pérez González",
+                    "departamento": "Recursos Humanos",
+                    "estado": "pendiente",
+                    "foto": null
+                },
+                {
+                    "rut": "15.678.901-2",
+                    "nombre": "María Rodríguez Silva",
+                    "departamento": "Finanzas",
+                    "estado": "autorizada",
+                    "foto": null
+                },
+                {
+                    "rut": "18.234.567-3",
+                    "nombre": "Carlos Martínez López",
+                    "departamento": "IT",
+                    "estado": "rechazada",
+                    "foto": null
+                },
+                {
+                    "rut": "20.123.456-7",
+                    "nombre": "Ana Gómez Ramírez",
+                    "departamento": "Marketing",
+                    "estado": "pendiente",
+                    "foto": null
+                },
+                {
+                    "rut": "22.987.654-1",
+                    "nombre": "Luis Torres Vargas",
+                    "departamento": "Ventas",
+                    "estado": "autorizada",
+                    "foto": null
+                }
+            ]
+        };
+
+        // Función para formatear RUT chileno
+        function formatearRut(rut) {
+            rut = rut.replace(/\./g, '').replace('-', '');
+            if (rut.length <= 1) return rut;
+            
+            let cuerpo = rut.slice(0, -1);
+            let dv = rut.slice(-1);
+            
+            cuerpo = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            return `${cuerpo}-${dv}`;
+        }
+
+        // Validar formato de RUT
+        function validarRut(rut) {
+            const pattern = /^\d{1,2}\.\d{3}\.\d{3}-[\dkK]$/;
+            return pattern.test(rut);
+        }
+
+        // Cargar datos mockeados
+        function cargarDatos() {
+            funcionariosData = datosMockeados.funcionarios;
+        }
+
+        // Buscar funcionario por RUT
+        function buscarFuncionario(rut) {
+            return funcionariosData.find(f => f.rut === rut);
+        }
+
+        // Mostrar mensaje de estado
+        function mostrarMensaje(mensaje, tipo) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = mensaje;
+            statusMessage.className = 'status-message ' + tipo;
+            
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Limpiar formulario
+        function limpiarFormulario() {
+            document.getElementById('estadoSelect').value = '';
+            document.getElementById('fileUpload').value = '';
+            document.getElementById('previewContainer').innerHTML = '';
+            imagenSeleccionada = null;
+        }
+
+        // Mostrar card de gestión
+        function mostrarCardGestion(funcionario) {
+            document.getElementById('nombreFuncionario').textContent = funcionario.nombre;
+            document.getElementById('rutMostrado').textContent = funcionario.rut;
+            document.getElementById('deptoFuncionario').textContent = funcionario.departamento;
+            document.getElementById('estadoSelect').value = funcionario.estado;
+            
+            if (funcionario.foto) {
+                mostrarVistaPrevia(funcionario.foto);
+            }
+            
+            document.getElementById('rutCard').style.display = 'none';
+            document.getElementById('gestionCard').style.display = 'block';
+        }
+
+        // Manejar archivo seleccionado
+        function manejarArchivo(file) {
+            const previewContainer = document.getElementById('previewContainer');
+            
+            if (!file.type.match('image.*')) {
+                mostrarMensaje('Solo se permiten imágenes', 'error');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) { // 5MB
+                mostrarMensaje('La imagen es demasiado grande (máx. 5MB)', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                imagenSeleccionada = e.target.result;
+                mostrarVistaPrevia(imagenSeleccionada);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // Mostrar vista previa
+        function mostrarVistaPrevia(src) {
+            const previewContainer = document.getElementById('previewContainer');
+            previewContainer.innerHTML = `<img src="${src}" alt="Vista previa">`;
+        }
+
+        // Manejar eventos
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarDatos();
+            
+            const rutInput = document.getElementById('rutInput');
+            const ingresarBtn = document.getElementById('ingresarBtn');
+            const volverBtn = document.getElementById('volverBtn');
+            const guardarBtn = document.getElementById('guardarBtn');
+            const limpiarBtn = document.getElementById('limpiarBtn');
+            const uploadArea = document.getElementById('uploadArea');
+            const fileUpload = document.getElementById('fileUpload');
+            
+            // Formatear RUT mientras se escribe
+            rutInput.addEventListener('input', function(e) {
+                let valor = e.target.value;
+                valor = valor.replace(/\D/g, '');
+                e.target.value = formatearRut(valor);
+            });
+            
+            // Ingresar con RUT
+            ingresarBtn.addEventListener('click', function() {
+                const rut = rutInput.value.trim();
+                
+                if (!rut) {
+                    mostrarMensaje('Por favor ingrese un RUT', 'error');
+                    return;
+                }
+                
+                if (!validarRut(rut)) {
+                    mostrarMensaje('Formato de RUT inválido', 'error');
+                    return;
+                }
+                
+                const funcionario = buscarFuncionario(rut);
+                
+                if (funcionario) {
+                    funcionarioActual = funcionario;
+                    mostrarCardGestion(funcionario);
+                } else {
+                    mostrarMensaje('Funcionario no encontrado', 'error');
+                }
+            });
+            
+            // Volver al inicio
+            volverBtn.addEventListener('click', function() {
+                document.getElementById('rutCard').style.display = 'block';
+                document.getElementById('gestionCard').style.display = 'none';
+                rutInput.value = '';
+                limpiarFormulario();
+            });
+            
+            // Guardar cambios
+            guardarBtn.addEventListener('click', function() {
+                const estado = document.getElementById('estadoSelect').value;
+                
+                if (!estado) {
+                    mostrarMensaje('Seleccione un estado', 'error');
+                    return;
+                }
+                
+                if (!imagenSeleccionada && !funcionarioActual.foto) {
+                    mostrarMensaje('Debe subir una imagen de respaldo', 'error');
+                    return;
+                }
+                
+                // Actualizar datos (simulado)
+                funcionarioActual.estado = estado;
+                if (imagenSeleccionada) {
+                    funcionarioActual.foto = imagenSeleccionada;
+                }
+                
+                mostrarMensaje('Cambios guardados exitosamente', 'success');
+                limpiarFormulario();
+            });
+            
+            // Limpiar formulario
+            limpiarBtn.addEventListener('click', limpiarFormulario);
+            
+            // Manejar arrastrar y soltar
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#2C3E50';
+                uploadArea.style.backgroundColor = 'rgba(44, 62, 80, 0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.borderColor = '';
+                uploadArea.style.backgroundColor = '';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '';
+                uploadArea.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length) {
+                    fileUpload.files = e.dataTransfer.files;
+                    manejarArchivo(fileUpload.files[0]);
+                }
+            });
+            
+            // Clic en área de subida
+            uploadArea.addEventListener('click', function() {
+                fileUpload.click();
+            });
+            
+            // Cambio en input file
+            fileUpload.addEventListener('change', function() {
+                if (this.files.length) {
+                    manejarArchivo(this.files[0]);
+                }
+            });
+        });
+
+        // Tecla Enter en RUT
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && document.getElementById('rutCard').style.display !== 'none') {
+                document.getElementById('ingresarBtn').click();
+            }
+        });
+    </script>
 </body>
 </html>
